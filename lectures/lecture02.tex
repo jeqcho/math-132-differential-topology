@@ -1,0 +1,138 @@
+% lecture02.tex — Derivatives and Tangents
+
+\section{Derivatives and Tangents}
+
+\begin{itemize}
+    \item For any smooth map $f \colon U \to V$ where $U \subset \R^k$ and $V \subset \R^\ell$ are open, the \emph{derivative} at $x \in U$ is the linear map
+    \[
+        df_x \colon \R^k \to \R^\ell
+    \]
+    defined by the directional derivative
+    \[
+        df_x(h) = \lim_{t \to 0} \frac{f(x + th) - f(x)}{t}, \qquad h \in \R^k.
+    \]
+    It can be represented by the $\ell \times k$ Jacobian matrix $\left(\frac{\partial f_i}{\partial x_j}(x)\right)_{\substack{i=1,\ldots,\ell \\ j=1,\ldots,k}}$.
+
+    (After translation, this is the best approximation of $f$ by a (nonhomogeneous) linear map, at $x$.)
+
+    \item By chain rule, for any commutative triangle of smooth maps
+    \[
+    \begin{tikzcd}
+        U \arrow[r, "f"] \arrow[dr, "g \circ f"'] & V \arrow[d, "g"] \\
+        & W
+    \end{tikzcd}
+    \]
+    we have a commutative triangle of linear maps
+    \[
+    \begin{tikzcd}
+        \R^k \arrow[r, "df_x"] \arrow[dr, "d(g \circ f)_x"'] & \R^\ell \arrow[d, "dg_y"] \\
+        & \R^m
+    \end{tikzcd}
+    \]
+\end{itemize}
+
+\begin{theorem}{Dimension is a Diffeomorphism Invariant}{dim-diffeo-invariant}
+    If $f$ is a diffeomorphism between open sets $U \subset \R^k$ and $V \subset \R^\ell$, then $k$ must be equal to $\ell$, and $df_x \colon \R^k \to \R^\ell$ must be nonsingular.
+\end{theorem}
+
+\begin{proof}
+    Since $f^{-1} \circ f = \id_U$, we have $d(f^{-1})_{f(x)} \circ df_x = \id_{\R^k}$. Similarly $df_x \circ d(f^{-1})_{f(x)} = \id_{\R^\ell}$. Thus $df_x$ has a two-sided inverse, and it follows that $k = \ell$.
+\end{proof}
+
+\subsection{Tangent Spaces}
+
+\begin{definition}{Tangent Space}{tangent-space}
+    For a smooth $m$-manifold $M \subset \R^k$, choose a parametrization $g \colon U \to M \subset \R^k$ of a neighborhood $g(U)$ of $x$ in $M$, with $g(u) = x$.
+
+    Set the \emph{tangent space of $M$ at $x$} to be
+    \[
+        T_x M := dg_u(\R^m),
+    \]
+    i.e.\ the image of $dg_u \colon \R^m \to \R^k$.
+\end{definition}
+
+\begin{proposition}{Tangent Space is Well-Defined}{tangent-well-defined}
+    This definition does not depend on the choice of parametrization.
+\end{proposition}
+
+\begin{proof}
+    If $h \colon V \to M \subset \R^k$ is another parametrization of a neighborhood $h(V)$ of $x$ in $M$, with $h(v) = x$, then
+    \[
+    \begin{tikzcd}
+        & \R^k \\
+        U \arrow[ur, "g"] & V \arrow[l, "h^{-1} \circ g"'] \arrow[u, "h"']
+    \end{tikzcd}
+    \]
+    where $U' = g^{-1}(g(U) \cap h(V))$ and $V' = h^{-1}(g(U) \cap h(V))$, so
+    \[
+    \begin{tikzcd}
+        & \R^k \\
+        \R^m \arrow[ur, "dg_u"] & \R^m \arrow[l, "d(h^{-1} \circ g)_u"'] \arrow[u, "dh_v"']
+    \end{tikzcd}
+    \]
+    and thus $dg_u(\R^m) = dh_v(\R^m)$.
+\end{proof}
+
+\begin{proposition}{Tangent Space is $m$-Dimensional}{tangent-dim}
+    $T_x M$ is $m$-dimensional (i.e.\ $dg_u \colon \R^m \to \R^k$ is injective).
+\end{proposition}
+
+\begin{proof}
+    Since $g^{-1} \colon g(U) \to U$ is smooth, there is an open set $W$ containing $x$ and a smooth map $F \colon W \to \R^m$ that coincides with $g^{-1}$ on $W \cap g(U)$. Then we have
+    \[
+    \begin{tikzcd}
+        & W \arrow[d, "F"] \\
+        U \arrow[r, hook] \arrow[ur, "g"] & \R^m
+    \end{tikzcd}
+    \]
+    where $U' = g^{-1}(W \cap g(U))$, so
+    \[
+    \begin{tikzcd}
+        & \R^k \arrow[d, "dF_x"] \\
+        \R^m \arrow[ur, "dg_u"] \arrow[r, equal] & \R^m
+    \end{tikzcd}
+    \]
+    and thus $dg_u$ is injective.
+\end{proof}
+
+\subsection{Derivative of Maps Between Manifolds}
+
+\begin{definition}{Derivative of a Map Between Manifolds}{derivative-manifolds}
+    For a smooth map $f \colon M \to N$ between smooth manifolds $M \subset \R^k$ and $N \subset \R^\ell$, the \emph{derivative}
+    \[
+        df_x \colon T_x M \to T_{f(x)} N
+    \]
+    is defined by $df_x(v) = dF_x(v)$, $v \in T_x M$, for any smooth map $F \colon W \to \R^\ell$ that coincides with $f$ on $W \cap M$.
+\end{definition}
+
+\begin{proposition}{Derivative is Well-Defined}{derivative-well-defined}
+    $dF_x(v) \in T_{f(x)} N$ and it does not depend on the particular choice of $F$.
+\end{proposition}
+
+\begin{proof}
+    Choose parametrizations $g \colon U \to M \subset \R^k$, $h \colon V \to N \subset \R^\ell$ for neighborhoods $g(U)$ of $x$ in $M$ and $h(V)$ of $f(x)$ in $N$. Replacing $U$ by a smaller set if necessary, we may assume that $g(U) \subset W$ and that $f \circ g(U) \subset h(V)$.
+
+    Then we can consider the commutative diagram
+    \[
+    \begin{tikzcd}
+        W \arrow[r, "F"] & \R^\ell \\
+        U \arrow[u, "g"] \arrow[r, "h^{-1} \circ f \circ g"'] & V \arrow[u, "h"']
+    \end{tikzcd}
+    \]
+    of smooth maps between open sets. Taking derivatives,
+    \[
+    \begin{tikzcd}
+        \R^k \arrow[r, "dF_x"] & \R^\ell \\
+        \R^m \arrow[u, "dg_u"] \arrow[r, "d(h^{-1} \circ f \circ g)_u"'] & \R^n \arrow[u, "dh_v"']
+    \end{tikzcd}
+    \]
+    and it is clear that $dF_x(T_x M) \subset T_{f(x)} N$.
+
+    Moreover, $df_x = dh_v \circ d(h^{-1} \circ f \circ g)_u \circ (dg_u)^{-1}$, so it is independent of $F$. Therefore, $df_x \colon T_x M \to T_{f(x)} N$ is well-defined.
+\end{proof}
+
+\begin{remark}{Chain Rule for Manifolds}{chain-rule-manifolds}
+    As before, chain rule still holds: $M \xrightarrow{f} N \xrightarrow{g} P$ implies $T_x M \xrightarrow{df_x} T_{f(x)} N \xrightarrow{dg_{f(x)}} T_{g(f(x))} P$, with $d(g \circ f)_x = dg_{f(x)} \circ df_x$.
+
+    And for any diffeomorphism $f \colon M \to N$, $df_x \colon T_x M \to T_{f(x)} N$ is an isomorphism.
+\end{remark}

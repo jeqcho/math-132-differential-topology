@@ -1,0 +1,107 @@
+% lecture03.tex — Inverse Function Theorem and Immersions
+
+\section{Inverse Function Theorem and Immersions}
+
+Suppose $M$, $N$ are smooth manifolds of the same dimension and $f \colon M \to N$ is a smooth map.
+
+\begin{definition}{Local Diffeomorphism}{local-diffeo}
+    We say $f$ is a \emph{local diffeomorphism} at $p \in M$ if $f$ maps any sufficiently small open neighborhood $U$ of $p$ diffeomorphically onto an open set $f(U)$.
+\end{definition}
+
+Clearly (from last lecture), if $f$ is a local diffeomorphism at $p \in M$, then $df_p \colon T_p M \to T_{f(p)} N$ is an isomorphism.
+
+The converse is also true!
+
+\begin{theorem}{Inverse Function Theorem}{inv-fn-thm}
+    If $f \colon M \to N$ is a smooth map whose derivative $df_p$ at $p \in M$ is an isomorphism, then $f$ is a local diffeomorphism at $p$.
+\end{theorem}
+
+\begin{proof}
+    Easily follows from the Inverse Function Theorem for open subsets of Euclidean spaces, using local parametrizations.
+\end{proof}
+
+\emph{Morally: local behavior of smooth maps is completely determined by their derivatives.}
+
+\subsection{Immersions}
+
+More generally, when $\dim M \leq \dim N$, a map $f \colon M \to N$ is said to be an \emph{immersion} at $p \in M$ if $df_p$ is injective. If it is an immersion at every point, we simply call it an \emph{immersion}.
+
+\begin{example}{Immersions}{immersion-examples}
+    \begin{enumerate}
+        \item $S^1 \to \R^2$: a figure-eight curve $\bigcirc \to 8$.
+        \item $\R \to T^2$ with irrational slope. (The image may not be a manifold.)
+    \end{enumerate}
+\end{example}
+
+\begin{theorem}{Local Immersion Theorem}{local-immersion-thm}
+    If $f \colon M \to N$ is an immersion at $p \in M$, then there exist local coordinates around $p \in M$ and $f(p) \in N$ such that
+    \[
+        f(x_1, \ldots, x_m) = (x_1, \ldots, x_m, 0, \ldots, 0).
+    \]
+\end{theorem}
+
+\begin{proof}
+    Choose any local parametrizations $\phi \colon U \to M$, $U \subset \R^m$, with $\phi(0) = p$, and $\psi \colon V \to N$, $V \subset \R^n$, with $\psi(0) = f(p)$.
+
+    By making $U$ smaller if necessary, we may assume $f \circ \phi(U) \subset \psi(V)$ to get a commutative diagram
+    \[
+    \begin{tikzcd}
+        M \arrow[r, "f"] & N \\
+        U \arrow[u, "\phi"] \arrow[r, "g"'] & V \arrow[u, "\psi"']
+    \end{tikzcd}
+    \]
+    where $g = \psi^{-1} \circ f \circ \phi$.
+
+    By the assumption, $dg_0 \colon \R^m \to \R^n$ is injective. Hence, by change of basis in $\R^n$, we may assume
+    \[
+        dg_0 = \begin{pmatrix} I_m \\ 0 \end{pmatrix}
+    \]
+    where $I_m$ is the $m \times m$ identity matrix and $0$ is the $(n-m) \times m$ zero matrix.
+
+    Now define $G \colon U \times \R^{n-m} \to \R^n$ by
+    \[
+        (x, z) \mapsto g(x) + (0, z).
+    \]
+    Then $dG_0 = \begin{pmatrix} I_m & \\ & I_{n-m} \end{pmatrix} = I_n$. Therefore, by the Inverse Function Theorem, $G$ is a local diffeomorphism at $0$.
+
+    Note also that $g = G \circ \iota$, where $\iota \colon U \to U \times \R^{n-m}$ is the canonical immersion $x \mapsto (x, 0)$.
+
+    It follows that, after shrinking $U$ and $V$ sufficiently, we have
+    \[
+    \begin{tikzcd}
+        M \arrow[r, "f"] & N \\
+        U \arrow[u, "\phi"] \arrow[r, "\iota"'] & V \arrow[u, "\psi \circ G"']
+    \end{tikzcd}
+    \]
+    as desired.
+\end{proof}
+
+\begin{corollary}{Immersion is an Open Condition}{immersion-open}
+    If $f$ is an immersion at $p$, then it is an immersion in a neighborhood of $p$. That is, \emph{immersion is an open condition}.
+\end{corollary}
+
+\subsection{Embeddings}
+
+\begin{definition}{Embedding}{embedding}
+    An immersion $f \colon M \to N$ that is injective and \emph{proper} (preimage of every compact set is compact; automatic when $M$ is compact) is called an \emph{embedding}.
+\end{definition}
+
+\begin{theorem}{Embeddings Map onto Submanifolds}{embedding-submanifold}
+    An embedding $f \colon M \to N$ maps $M$ diffeomorphically onto a submanifold $f(M)$ of $N$.
+\end{theorem}
+
+\begin{proof}
+    It suffices to show that the image of any open subset $W \subset M$ is an open subset of $f(M)$.
+
+    If $f(W)$ is not open in $f(M)$, there must be a sequence of points $q_i \in f(M) \setminus f(W)$ that converge to a point $q \in f(W)$.
+
+    By injectivity, each $q_i$ has exactly one preimage $p_i \in M \setminus W$, and $q$ has preimage $p \in W$.
+
+    By properness, $\{p, p_i \mid i \in \N\}$ is compact, and hence $\{p_i\}$ must have a subsequence converging to some $p' \in \{p, p_i \mid i \in \N\} \subset M$.
+
+    Since $f(p') = \lim f(p_{i_j}) = \lim q_{i_j} = q = f(p)$, $p'$ must be $p$.
+
+    However, this contradicts our assumption that $W$ is open.
+
+    Therefore, $f$ is an open map, and the result follows from the local immersion theorem.
+\end{proof}

@@ -1,0 +1,193 @@
+% preamble.tex — Shared preamble for Math 132 Lecture Notes
+
+% === Core Packages ===
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+
+% === Math Packages ===
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{bm}
+
+% === Formatting ===
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{fancyhdr}
+
+% === Hyperref Setup ===
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!60!black,
+    urlcolor=blue!60!black,
+    citecolor=blue!60!black,
+}
+
+% === Math Commands ===
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\id}{\mathrm{id}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\rank}{rank}
+
+% === Color Definitions ===
+% Definition: Blue
+\definecolor{defbg}{HTML}{E8F0FE}
+\definecolor{defframe}{HTML}{1A73E8}
+
+% Theorem: Orange
+\definecolor{thmbg}{HTML}{FFF3E0}
+\definecolor{thmframe}{HTML}{E65100}
+
+% Proposition: Amber
+\definecolor{propbg}{HTML}{FFF8E1}
+\definecolor{propframe}{HTML}{F57F17}
+
+% Lemma: Teal
+\definecolor{lembg}{HTML}{E0F2F1}
+\definecolor{lemframe}{HTML}{00796B}
+
+% Corollary: Purple
+\definecolor{corbg}{HTML}{F3E5F5}
+\definecolor{corframe}{HTML}{7B1FA2}
+
+% Remark: Gray
+\definecolor{rembg}{HTML}{F5F5F5}
+\definecolor{remframe}{HTML}{616161}
+
+% Example: Green
+\definecolor{exbg}{HTML}{E8F5E9}
+\definecolor{exframe}{HTML}{2E7D32}
+
+% Claim: Indigo
+\definecolor{clmbg}{HTML}{E8EAF6}
+\definecolor{clmframe}{HTML}{3949AB}
+
+% === tcolorbox Environments ===
+\tcbuselibrary{theorems, breakable, skins}
+
+% Definition
+\newtcbtheorem[number within=chapter]{definition}{Definition}{
+    enhanced, breakable,
+    colback=defbg, colframe=defframe, colbacktitle=defframe, coltitle=white,
+    fonttitle=\bfseries, boxrule=1pt, arc=2pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    minipage boxed title*=-8mm,
+    boxed title style={boxrule=0.5pt, arc=1pt},
+    separator sign={.},
+}{def}
+
+% Theorem
+\newtcbtheorem[use counter from=definition]{theorem}{Theorem}{
+    enhanced, breakable,
+    colback=thmbg, colframe=thmframe, colbacktitle=thmframe, coltitle=white,
+    fonttitle=\bfseries, boxrule=1pt, arc=2pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    minipage boxed title*=-8mm,
+    boxed title style={boxrule=0.5pt, arc=1pt},
+    separator sign={.},
+}{thm}
+
+% Proposition
+\newtcbtheorem[use counter from=definition]{proposition}{Proposition}{
+    enhanced, breakable,
+    colback=propbg, colframe=propframe, colbacktitle=propframe, coltitle=white,
+    fonttitle=\bfseries, boxrule=1pt, arc=2pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    minipage boxed title*=-8mm,
+    boxed title style={boxrule=0.5pt, arc=1pt},
+    separator sign={.},
+}{prop}
+
+% Lemma
+\newtcbtheorem[use counter from=definition]{lemma}{Lemma}{
+    enhanced, breakable,
+    colback=lembg, colframe=lemframe, colbacktitle=lemframe, coltitle=white,
+    fonttitle=\bfseries, boxrule=1pt, arc=2pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    minipage boxed title*=-8mm,
+    boxed title style={boxrule=0.5pt, arc=1pt},
+    separator sign={.},
+}{lem}
+
+% Corollary
+\newtcbtheorem[use counter from=definition]{corollary}{Corollary}{
+    enhanced, breakable,
+    colback=corbg, colframe=corframe, colbacktitle=corframe, coltitle=white,
+    fonttitle=\bfseries, boxrule=1pt, arc=2pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    minipage boxed title*=-8mm,
+    boxed title style={boxrule=0.5pt, arc=1pt},
+    separator sign={.},
+}{cor}
+
+% Remark
+\newtcbtheorem[use counter from=definition]{remark}{Remark}{
+    enhanced, breakable,
+    colback=rembg, colframe=remframe, colbacktitle=remframe, coltitle=white,
+    fonttitle=\bfseries, boxrule=0.5pt, arc=2pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    minipage boxed title*=-8mm,
+    boxed title style={boxrule=0.5pt, arc=1pt},
+    separator sign={.},
+}{rem}
+
+% Example
+\newtcbtheorem[use counter from=definition]{example}{Example}{
+    enhanced, breakable,
+    colback=exbg, colframe=exframe, colbacktitle=exframe, coltitle=white,
+    fonttitle=\bfseries, boxrule=0.5pt, arc=2pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    minipage boxed title*=-8mm,
+    boxed title style={boxrule=0.5pt, arc=1pt},
+    separator sign={.},
+}{ex}
+
+% Claim
+\newtcbtheorem[use counter from=definition]{claim}{Claim}{
+    enhanced, breakable,
+    colback=clmbg, colframe=clmframe, colbacktitle=clmframe, coltitle=white,
+    fonttitle=\bfseries, boxrule=0.5pt, arc=2pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    minipage boxed title*=-8mm,
+    boxed title style={boxrule=0.5pt, arc=1pt},
+    separator sign={.},
+}{clm}
+
+% Proof styling — gray left border
+\tcolorboxenvironment{proof}{
+    blanker, breakable,
+    left=5mm,
+    before skip=10pt, after skip=10pt,
+    borderline west={1pt}{0pt}{gray!60},
+}
+
+% === cleveref support for tcolorbox ===
+\crefname{tcb@cnt@definition}{Definition}{Definitions}
+\crefname{tcb@cnt@theorem}{Theorem}{Theorems}
+\crefname{tcb@cnt@proposition}{Proposition}{Propositions}
+\crefname{tcb@cnt@lemma}{Lemma}{Lemmas}
+\crefname{tcb@cnt@corollary}{Corollary}{Corollaries}
+\crefname{tcb@cnt@remark}{Remark}{Remarks}
+\crefname{tcb@cnt@example}{Example}{Examples}
+\crefname{tcb@cnt@claim}{Claim}{Claims}
