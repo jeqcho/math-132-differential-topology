@@ -1,0 +1,3 @@
+[submodule "reference/stat-212-lecture-notes"]
+	path = reference/stat-212-lecture-notes
+	url = https://github.com/jeqcho/stat-212-lecture-notes
