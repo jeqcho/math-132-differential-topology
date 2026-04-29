@@ -29,15 +29,15 @@ Earlier, we saw that transversality is stable under small perturbations. Today, 
 \end{proof}
 
 \begin{corollary}{Transversal Maps are Generic (Euclidean Target)}{transversal-generic-euclidean}
-    Transversal maps are generic when the target manifold $N$ is $\R^\ell$.
+    Let $M$ be a smooth manifold with boundary, $f \colon M \to \R^\ell$ a smooth map, and $P \subset \R^\ell$ a submanifold. Then for almost every $s \in \R^\ell$, the translated map $f_s(x) := f(x) + s$ satisfies $f_s \pitchfork P$ and $f_s|_{\partial M} \pitchfork P$.
+
+    In particular, $s$ may be chosen arbitrarily small.
 \end{corollary}
 
 \begin{proof}
-    If $f \colon M \to \R^\ell$ is any smooth map, take $S$ to be an open ball of $\R^\ell$, and define $F \colon M \times S \to \R^\ell$, $(x, s) \mapsto f(x) + s$.
+    Define $F \colon M \times \R^\ell \to \R^\ell$ by $F(x, s) = f(x) + s$. For any fixed $x \in M$, the map $s \mapsto F(x, s)$ is a translation, hence a submersion. So $F$ itself is a submersion, as is $F|_{\partial M \times \R^\ell}$. In particular, both are transversal to any submanifold $P \subset \R^\ell$.
 
-    For any fixed $x$, this is obviously a submersion, so transversal to any submanifold $P \subset \R^\ell$.
-
-    Thanks to the transversality theorem, $f_s(x) = f(x) + s$ is transversal to $P$, for almost every $s \in S$, where $s$ may be taken to be arbitrarily small.
+    The Transversality Theorem then gives $f_s \pitchfork P$ and $f_s|_{\partial M} \pitchfork P$ for almost every $s \in \R^\ell$. Since the exceptional set has measure zero, it has empty interior, so $s$ may be chosen arbitrarily small.
 \end{proof}
 
 For an arbitrary target manifold $N \subset \R^\ell$, the proof of genericity of transversal maps is essentially the same; we just need to project the shifted map down to $N$.
