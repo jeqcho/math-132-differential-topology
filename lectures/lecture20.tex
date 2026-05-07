@@ -1,0 +1,101 @@
+% lecture20.tex — Differential Forms
+
+\section{Differential Forms}
+
+Recall that a vector field $v$ on $M$ is a smoothly varying field of tangent vectors $v_x \in T_x M$.
+
+\begin{definition}{1-Form}{one-form}
+    A \emph{1-form} $\alpha$ on $M$ is a smoothly varying field of cotangent vectors
+    \[
+        \alpha_x \in T_x^* M := (T_x M)^*.
+    \]
+\end{definition}
+
+If $v$ is a vector field and $\alpha$ is a 1-form, then
+\[
+    \alpha(v) \colon M \to \R, \qquad x \mapsto \alpha_x(v_x),
+\]
+is a smooth function.
+
+\begin{example}{Differential of a Function}{differential}
+    If $f \colon M \to \R$ is a smooth function, then $df_x \colon T_x M \to \R$ is a linear map at each $x$, so $df$ is a 1-form on $M$. For any vector field $v$ on $M$,
+    \[
+        df(v) =: vf
+    \]
+    is a smooth function on $M$, given by the directional derivative of $f$ along $v_x$ at each $x \in M$.
+\end{example}
+
+\begin{definition}{$p$-Form}{p-form}
+    A \emph{$p$-form} $\omega$ on $M$ is a smoothly varying field of alternating $p$-tensors
+    \[
+        \omega_x \in \Lambda^p(T_x^* M).
+    \]
+    (A $0$-form is just a smooth function.)
+\end{definition}
+
+\subsection{Forms on Euclidean Space}
+
+\begin{example}{Coordinate Forms}{coordinate-forms}
+    In $\R^m$, the coordinate functions $x_1, \ldots, x_m$ yield 1-forms $dx_1, \ldots, dx_m$. For each strictly increasing sequence $I = (i_1, \ldots, i_p)$ with $1 \leq i_1 < \cdots < i_p \leq m$,
+    \[
+        dx_I := dx_{i_1} \wedge \cdots \wedge dx_{i_p}
+    \]
+    is a $p$-form on $\R^m$.
+\end{example}
+
+In fact, every $p$-form on an open subset $U \subset \R^m$ can be uniquely expressed as a sum
+\[
+    \omega = \sum_I f_I\, dx_I
+\]
+over increasing index sequences $I$, the $f_I$ being functions on $U$.
+
+\subsection{Properties of Differential Forms}
+
+\begin{itemize}
+    \item \textbf{(Linearity)} If $\omega_1$ and $\omega_2$ are $p$-forms, then their pointwise sum $\omega_1 + \omega_2$ is also a $p$-form.
+    \item \textbf{(Wedge product)} If $\omega$ is a $p$-form and $\theta$ is a $q$-form, then $\omega \wedge \theta = (-1)^{pq}\, \theta \wedge \omega$ is a $(p+q)$-form.
+    \item \textbf{(Pullback)} If $f \colon M \to N$ is a smooth map and $\omega$ is a $p$-form on $N$, then the \emph{pullback} $f^*\omega$ of $\omega$ by $f$, defined by
+    \[
+        (f^*\omega)_x = (df_x)^* \omega_{f(x)},
+    \]
+    is a $p$-form on $M$. Equivalently, $(f^*\omega)_x$ is the composition
+    \[
+        \Lambda^p(T_x M) \xrightarrow{df_x} \Lambda^p(T_{f(x)} N) \xrightarrow{\omega_{f(x)}} \R.
+    \]
+\end{itemize}
+
+The pullback satisfies
+\[
+    f^*(\omega_1 + \omega_2) = f^*\omega_1 + f^*\omega_2, \qquad
+    f^*(\omega \wedge \theta) = f^*\omega \wedge f^*\theta, \qquad
+    (f \circ g)^* \omega = g^* f^* \omega.
+\]
+
+\subsection{Pullback on Euclidean Space}
+
+\begin{example}{Pullback in Coordinates}{pullback-euclidean}
+    Let $f \colon V \to U$ be a smooth map between open subsets $U \subset \R^m$, $V \subset \R^n$, with coordinate functions $x_1, \ldots, x_m$ on $\R^m$ and $y_1, \ldots, y_n$ on $\R^n$. Writing $f_i := x_i \circ f$,
+    \[
+        f^* dx_i = \sum_{j=1}^{n} \frac{\partial f_i}{\partial y_j}\, dy_j = df_i.
+    \]
+    For an arbitrary $p$-form $\omega = \sum_I a_I\, dx_I$ on $U$,
+    \[
+        f^* \omega = \sum_I (f^* a_I)(f^* dx_I) = \sum_I (a_I \circ f)\, df_I,
+    \]
+    where $df_I = df_{i_1} \wedge \cdots \wedge df_{i_p}$ for $I = (i_1, \ldots, i_p)$.
+\end{example}
+
+\begin{example}{Volume Form Under a Diffeomorphism}{volume-form}
+    In the special case when $f \colon V \to U$ is a diffeomorphism of two open subsets of $\R^m$,
+    \[
+        f^*(\underbrace{dx_1 \wedge \cdots \wedge dx_m}_{\text{``volume form''}}) = df_1 \wedge \cdots \wedge df_m = \det(df)\, dy_1 \wedge \cdots \wedge dy_m.
+    \]
+\end{example}
+
+\subsection{Smoothness of Forms}
+
+We can use the pullback to define precisely what we mean by ``smoothness'' for a form $\omega$.
+
+A form $\omega$ on an open set $U \subset \R^m$ is \emph{smooth} if each coefficient function $a_I$ in its expansion $\omega = \sum_I a_I\, dx_I$ is smooth. Note that if $\omega$ is smooth and $f \colon V \to U$ is a smooth map, then $f^*\omega$ is smooth as well.
+
+More generally, a form $\omega$ on $M$ is \emph{smooth} if, for every local parametrization $\varphi \colon U \to M$, the pullback $\varphi^*\omega$ is smooth on $U$.
