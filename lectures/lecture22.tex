@@ -1,0 +1,135 @@
+% lecture22.tex — Exterior Derivative and de Rham Cohomology
+
+\section{Exterior Derivative}
+
+Let $\Omega^p(M)$ denote the set of all smooth $p$-forms on $M$. These are $\R$-vector spaces, and in fact $C^\infty(M)$-modules, where $C^\infty(M) = \Omega^0(M)$.
+
+Recall the linear map
+\[
+    \Omega^0(M) \xrightarrow{d} \Omega^1(M), \qquad f \mapsto df.
+\]
+This can be extended to arbitrary $p$-forms. On an open subset $U \subset \R^m$, define the \emph{exterior derivative}
+\[
+    \Omega^p(U) \xrightarrow{d} \Omega^{p+1}(U), \qquad \omega = \sum_I a_I\, dx_I \mapsto d\omega = \sum_I da_I \wedge dx_I.
+\]
+
+\begin{theorem}{Properties of the Exterior Derivative}{exterior-derivative-properties}
+    The exterior derivative $d$ on smooth forms on $U \subset \R^m$ satisfies:
+    \begin{enumerate}[label=(\alph*)]
+        \item \textbf{(Linearity)} $d(\omega_1 + \omega_2) = d\omega_1 + d\omega_2$.
+        \item \textbf{(Multiplication law)} $d(\omega \wedge \theta) = d\omega \wedge \theta + (-1)^p \omega \wedge d\theta$, if $\omega$ is a $p$-form.
+        \item \textbf{(Cocycle condition)} $d(d\omega) = 0$.
+    \end{enumerate}
+    Furthermore, this is the unique operator with these properties that agrees with the previous definition of $df$ for smooth functions $f$.
+\end{theorem}
+
+\begin{proof}
+    Linearity is obvious, and the multiplication law is an easy computation.
+
+    The cocycle condition is also a straightforward computation:
+    \[
+        \omega = \sum_I a_I\, dx_I \implies d\omega = \sum_I da_I \wedge dx_I = \sum_I \left( \sum_i \frac{\partial a_I}{\partial x_i}\, dx_i \right) \wedge dx_I,
+    \]
+    so
+    \[
+        d(d\omega) = \sum_I \left( \sum_i \sum_j \frac{\partial^2 a_I}{\partial x_i \partial x_j}\, dx_j \wedge dx_i \right) \wedge dx_I = 0,
+    \]
+    since the $(i,j)$-term cancels with the $(j,i)$-term.
+
+    For uniqueness, if $D$ were another operator satisfying (a), (b), (c) and $Df = df$, then by (a) and (b),
+    \begin{align*}
+        D\omega &= D\!\left(\sum_I a_I\, dx_I\right) = \sum_I \left( Da_I \wedge dx_I + a_I\, D(dx_I) \right) \\
+        &= \sum_I \left( da_I \wedge dx_I + a_I \sum_{1 \leq j \leq p} (-1)^{j-1}\, dx_{i_1} \wedge \cdots \wedge D\, dx_{i_j} \wedge \cdots \wedge dx_{i_p} \right) \\
+        &= \sum_I da_I \wedge dx_I = d\omega,
+    \end{align*}
+    where the last equality uses (c) applied to $D\, dx_{i_j} = D(D x_{i_j}) = 0$.
+\end{proof}
+
+\begin{corollary}{Diffeomorphism Invariance}{d-diffeo-invariance}
+    If $g \colon V \to U$ is a diffeomorphism of open subsets of $\R^m$, then for every form $\omega$ on $U$,
+    \[
+        d(g^*\omega) = g^*(d\omega).
+    \]
+\end{corollary}
+
+\begin{proof}
+    The operator $D := (g^{-1})^* \circ d \circ g^*$ satisfies (a), (b), (c) and $D = d$ on functions. By uniqueness, $D = d$, i.e.\ $d \circ g^* = g^* \circ d$.
+\end{proof}
+
+This corollary allows us to define
+\[
+    \Omega^p(M) \xrightarrow{d} \Omega^{p+1}(M)
+\]
+locally, using local parametrizations: the corollary says it is independent of the choice of local parametrizations. The properties of exterior derivatives on Euclidean spaces carry over to arbitrary manifolds with boundary. Moreover, $d$ commutes with arbitrary pullback:
+
+\begin{theorem}{$d$ Commutes with Pullback}{d-pullback}
+    If $g \colon N \to M$ is any smooth map of manifolds, then for any form $\omega$ on $M$,
+    \[
+        d(g^*\omega) = g^*(d\omega).
+    \]
+\end{theorem}
+
+\begin{proof}
+    This holds for any $0$-form (exercise) and also when $\omega = df$, since
+    \[
+        d(g^* df) = d(d\, g^* f) = 0 = g^*(d\, df).
+    \]
+    If the theorem holds for $\omega$ and $\theta$, then it holds for $\omega \wedge \theta$:
+    \begin{align*}
+        d(g^*(\omega \wedge \theta)) &= d(g^*\omega \wedge g^*\theta) = d(g^*\omega) \wedge g^*\theta + (-1)^p\, g^*\omega \wedge d(g^*\theta) \\
+        &= g^* d\omega \wedge g^*\theta + (-1)^p\, g^*\omega \wedge g^* d\theta = g^*\, d(\omega \wedge \theta).
+    \end{align*}
+    Every form on $M$ is locally expressible as $\sum_I a_I\, dx_I$, and since the theorem is local, it holds for every form.
+\end{proof}
+
+\begin{example}{Explicit Calculation of $d$ on $\R^3$}{d-on-R3}
+    The de Rham sequence on $\R^3$,
+    \[
+        \Omega^0(\R^3) \xrightarrow{d} \Omega^1(\R^3) \xrightarrow{d} \Omega^2(\R^3) \xrightarrow{d} \Omega^3(\R^3) \xrightarrow{d} 0,
+    \]
+    recovers the classical vector calculus operators:
+    \begin{align*}
+        f &\xmapsto{\nabla} \tfrac{\partial f}{\partial x_1}\, dx_1 + \tfrac{\partial f}{\partial x_2}\, dx_2 + \tfrac{\partial f}{\partial x_3}\, dx_3 && \text{(gradient)} \\
+        f_1\, dx_1 + f_2\, dx_2 + f_3\, dx_3 &\xmapsto{\nabla \times} \left(\tfrac{\partial f_3}{\partial x_2} - \tfrac{\partial f_2}{\partial x_3}\right) dx_2 \wedge dx_3 + \text{cyc.} && \text{(curl)} \\
+        f_1\, dx_2 \wedge dx_3 + f_2\, dx_3 \wedge dx_1 + f_3\, dx_1 \wedge dx_2 &\xmapsto{\nabla \cdot} \left(\tfrac{\partial f_1}{\partial x_1} + \tfrac{\partial f_2}{\partial x_2} + \tfrac{\partial f_3}{\partial x_3}\right) dx_1 \wedge dx_2 \wedge dx_3 && \text{(divergence)}
+    \end{align*}
+\end{example}
+
+\section{de Rham Cohomology}
+
+On any smooth manifold $M$, we have a chain complex
+\[
+    0 \to \Omega^0(M) \xrightarrow{d} \Omega^1(M) \xrightarrow{d} \cdots \xrightarrow{d} \Omega^m(M) \to 0,
+\]
+called the \emph{de Rham complex}.
+
+\begin{definition}{Closed and Exact Forms}{closed-exact}
+    A $p$-form $\omega$ is \emph{closed} if $d\omega = 0$ (i.e.\ $\omega \in \ker d$), and \emph{exact} if $\omega = d\theta$ for some $(p-1)$-form $\theta$ (i.e.\ $\omega \in \im d$).
+\end{definition}
+
+Since $d^2 = 0$, every exact form is closed, but the converse is not always true.
+
+\begin{definition}{de Rham Cohomology Group}{de-rham-cohomology}
+    The \emph{$p$-th de Rham cohomology group} of $M$ is the $\R$-vector space of closed $p$-forms modulo exact $p$-forms,
+    \[
+        H^p(M) := \frac{\ker\!\left( \Omega^p(M) \xrightarrow{d} \Omega^{p+1}(M) \right)}{\im\!\left( \Omega^{p-1}(M) \xrightarrow{d} \Omega^p(M) \right)}.
+    \]
+\end{definition}
+
+\begin{remark}{Functoriality}{de-rham-functorial}
+    Since $d$ commutes with pullbacks, any smooth map $f \colon N \to M$ induces a linear map $f^* \colon H^p(M) \to H^p(N)$ on de Rham cohomology groups.
+\end{remark}
+
+\begin{example}{$H^0$}{H0}
+    A $0$-form (i.e.\ a function) is closed iff it is constant on each component, so
+    \[
+        \dim H^0(M) = \#\,\text{connected components of } M.
+    \]
+\end{example}
+
+\begin{remark}{Cohomology of $\R^m$ and $S^m$}{H-Rm-Sm}
+    \[
+        H^p(\R^m) = \begin{cases} \R & \text{if } p = 0, \\ 0 & \text{if } p > 0, \end{cases} \qquad
+        H^p(S^m) = \begin{cases} \R & \text{if } p = 0 \text{ or } m, \\ 0 & \text{otherwise} \end{cases} \quad (m > 0).
+    \]
+\end{remark}
