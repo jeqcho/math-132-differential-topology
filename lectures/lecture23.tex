@@ -1,0 +1,103 @@
+% lecture23.tex — Stokes Theorem
+
+\section{Stokes Theorem}
+
+Stokes theorem is a remarkable theorem relating $d$ with $\partial$, which generalizes the fundamental theorem of calculus.
+
+\begin{theorem}{Stokes Theorem}{stokes}
+    Let $M$ be a compact, oriented $m$-manifold with boundary. Then, for any smooth $(m-1)$-form $\omega$ on $M$,
+    \[
+        \int_{\partial M} \omega = \int_M d\omega.
+    \]
+\end{theorem}
+
+Before getting into the proof, let's first appreciate this theorem for a moment.
+
+\begin{remark}{Special Cases of Stokes}{stokes-special-cases}
+    \begin{itemize}
+        \item When $M = [a, b] \subset \R$ and $\omega \colon [a, b] \to \R$ is a function, this is just the fundamental theorem of calculus.
+        \item When $M$ is boundaryless, the integral of any exact form on a boundaryless manifold is $0$.
+        \item If $\omega$ is a closed $(m-1)$-form on $M$, then $\int_{\partial M} \omega = 0$.
+        \item The theorem is compatible with $\partial^2 = 0$ and $d^2 = 0$:
+        \[
+            0 = \int_{\partial^2 M} \omega = \int_{\partial M} d\omega = \int_M d^2 \omega = 0.
+        \]
+    \end{itemize}
+\end{remark}
+
+\begin{proof}[Proof of Stokes]
+    Since both sides of the equation are linear in $\omega$, we may assume that $\omega$ has compact support contained in a parametrizable open subset $U$. That is, we can work locally in an open subset of $\R^m$ or $H^m$.
+
+    Any $(m-1)$-form in $m$-space may be written as
+    \[
+        \nu = \sum_{i=1}^{m} (-1)^{i-1} f_i\, dx_1 \wedge \cdots \wedge \widehat{dx_i} \wedge \cdots \wedge dx_m,
+    \]
+    where $\widehat{dx_i}$ means $dx_i$ is omitted. So
+    \[
+        d\nu = \left( \sum_{i=1}^{m} \frac{\partial f_i}{\partial x_i} \right) dx_1 \wedge \cdots \wedge dx_m.
+    \]
+
+    \textbf{Case 1: $U$ open in $\R^m$.} If $\nu$ has compact support in $U$, then by Fubini and the fundamental theorem of calculus,
+    \[
+        \int_U d\nu = \sum_i \int_{\R^m} \frac{\partial f_i}{\partial x_i}\, dx_1 \cdots dx_m = \sum_i \int_{\R^{m-1}} \left( \int_{-\infty}^{\infty} \frac{\partial f_i}{\partial x_i}\, dx_i \right) dx_1 \cdots \widehat{dx_i} \cdots dx_m = 0,
+    \]
+    since each $f_i$ has compact support. And $\partial U = \emptyset$, so $\int_{\partial U} \nu = 0$ as well.
+
+    \textbf{Case 2: $U$ open in $H^m$.} By Fubini, only the $i = m$ term survives integration over $H^m$:
+    \begin{align*}
+        \int_U d\nu &= \sum_i \int_{H^m} \frac{\partial f_i}{\partial x_i}\, dx_1 \cdots dx_m = \int_{\R^{m-1}} \left( \int_0^\infty \frac{\partial f_m}{\partial x_m}\, dx_m \right) dx_1 \cdots dx_{m-1} \\
+        &= \int_{\R^{m-1}} -f_m(x_1, \ldots, x_{m-1}, 0)\, dx_1 \cdots dx_{m-1} =: \circledast,
+    \end{align*}
+    by the fundamental theorem of calculus.
+
+    On the other hand, since $x_m = 0$ on $\partial H^m$, we have $dx_m = 0$ on $\partial H^m$, so only the $i = m$ term in $\nu$ survives, giving
+    \begin{align*}
+        \int_{\partial H^m} \nu &= \int_{\partial H^m} (-1)^{m-1} f_m(x_1, \ldots, x_{m-1}, 0)\, dx_1 \wedge \cdots \wedge dx_{m-1} \\
+        &= (-1)^m \int_{\R^{m-1}} (-1)^{m-1} f_m(x_1, \ldots, x_{m-1}, 0)\, dx_1 \cdots dx_{m-1} = \circledast,
+    \end{align*}
+    where the leading $(-1)^m$ records the change of orientation under the diffeomorphism $\partial H^m \to \R^{m-1}$, $(x_1, \ldots, x_{m-1}, 0) \mapsto (x_1, \ldots, x_{m-1})$, given by the sign of the ordered basis $\{-e_m, e_1, \ldots, e_{m-1}\}$.
+\end{proof}
+
+\subsection{Consequences}
+
+\begin{corollary}{Integration Defines a Cohomology Functional}{integration-cohomology}
+    If $P$ is a $p$-dimensional compact, oriented submanifold of $M$, then integration over $P$ defines a linear functional
+    \[
+        \int_P \colon H^p(M) \to \R.
+    \]
+    Moreover, if $P = \partial W$ for some compact, oriented $(p+1)$-dimensional submanifold with boundary in $M$, then $\int_P = 0$.
+\end{corollary}
+
+\begin{corollary}{Vanishing under Bounding Extension}{stokes-extension-vanishing}
+    If $f \colon M \to N$ is a smooth map of compact, oriented $m$-manifolds which extends to all of a compact, oriented $(m+1)$-manifold $W$ with $\partial W = M$, then
+    \[
+        \int_M f^*\omega = 0
+    \]
+    for any $m$-form $\omega$ on $N$.
+\end{corollary}
+
+\begin{proof}
+    Let $F \colon W \to N$ extend $f$. Then by Stokes,
+    \[
+        \int_M f^*\omega = \int_{\partial W} F^*\omega = \int_W F^* d\omega = 0,
+    \]
+    since $\omega$ is a top-degree form, so $d\omega = 0$.
+\end{proof}
+
+\begin{corollary}{Homotopy Invariance of the Integral}{stokes-homotopy}
+    If $f_0, f_1 \colon M \to N$ are homotopic maps of compact, oriented $m$-manifolds, then for every $m$-form $\omega$ on $N$,
+    \[
+        \int_M f_0^*\omega = \int_M f_1^*\omega.
+    \]
+\end{corollary}
+
+\begin{proof}
+    Apply the previous corollary to the homotopy $F \colon I \times M \to N$.
+\end{proof}
+
+\begin{remark}{Degree Formula}{degree-formula}
+    While we won't have time to cover it, the following \emph{degree formula} holds:
+    \[
+        \int_M f^*\omega = \deg(f) \int_N \omega.
+    \]
+\end{remark}
