@@ -1,0 +1,71 @@
+% lecture24.tex — Gauss-Bonnet Theorem
+
+\section{Gauss--Bonnet Theorem}
+
+Let $M$ be a compact hypersurface (i.e.\ $m$-dimensional submanifold) in $\R^{m+1}$.
+
+\begin{definition}{Gauss Map}{gauss-map}
+    The \emph{Gauss map}
+    \[
+        g \colon M \to S^m, \qquad x \mapsto \vec{n}(x),
+    \]
+    sends each point $x \in M$ to the outward-pointing unit normal vector $\vec{n}(x) \in S^m$.
+\end{definition}
+
+\begin{definition}{Volume Form}{volume-form-Gauss}
+    The \emph{volume form} $\mathrm{vol}_M$ on $M$ is the $m$-form on $M$ which evaluates to $\frac{1}{m!}$ on each positively oriented orthonormal basis of $T_x M$. Define $\mathrm{vol}_{S^m}$ on $S^m$ in the same way.
+\end{definition}
+
+Since they are top-dimensional forms, at each point $x \in M$, $g^* \mathrm{vol}_{S^m}$ must be a scalar multiple of $\mathrm{vol}_M$.
+
+\begin{definition}{Gaussian Curvature}{gaussian-curvature}
+    The \emph{Gaussian curvature} of $M$ is the function $\kappa \colon M \to \R$ such that
+    \[
+        g^* \mathrm{vol}_{S^m} = \kappa\, \mathrm{vol}_M.
+    \]
+    It measures how much $g$ distorts the volume (and orientation).
+\end{definition}
+
+\begin{example}{Hypersurfaces in $\R^3$}{Gauss-curvature-R3}
+    For a convex surface (e.g.\ a sphere or ellipsoid), nearby normals on $M$ map to nearby normals on $S^2$ in an orientation-preserving way, so $\kappa > 0$. For a saddle surface, the Gauss map reverses orientation locally, so $\kappa < 0$.
+\end{example}
+
+\subsection{The Gauss--Bonnet Theorem}
+
+The Gauss--Bonnet theorem relates the Gaussian curvature (geometric, local) with the Euler characteristic (global, topological).
+
+\begin{theorem}{Gauss--Bonnet}{gauss-bonnet}
+    If $M$ is a compact, even-dimensional hypersurface in $\R^{m+1}$, then
+    \[
+        \int_M \kappa = \tfrac{1}{2}\, \gamma_m\, \chi(M),
+    \]
+    where
+    \[
+        \gamma_m := \int_{S^m} \mathrm{vol}_{S^m} = \frac{2 \cdot (2\pi)^{m/2}}{1 \cdot 3 \cdot 5 \cdots (m-1)}
+    \]
+    is the volume of the unit $m$-sphere $S^m \subset \R^{m+1}$.
+\end{theorem}
+
+\begin{remark}{Why Even Dimension?}{gb-even-dim}
+    The formula is false when $M$ is odd-dimensional, since $\chi(M) = 0$ in that case, while $\int_M \kappa$ can be non-zero.
+\end{remark}
+
+\begin{proof}
+    By the degree formula,
+    \[
+        \int_M \kappa\, \mathrm{vol}_M = \int_M g^* \mathrm{vol}_{S^m} = \deg(g) \int_{S^m} \mathrm{vol}_{S^m} = \deg(g)\, \gamma_m,
+    \]
+    so Gauss--Bonnet is equivalent to the claim
+    \[
+        \chi(M) = 2 \deg(g).
+    \]
+
+    This can be shown using the Poincar\'e--Hopf index theorem. Choose $a \in S^m$ such that $\pm a$ are regular values of $g$, and let $v$ be the vector field on $M$ whose value $v_x$ at $x \in M$ is the projection of $-a$ onto $T_x M$.
+
+    Note that $z \in M$ is a zero of $v$ if and only if $g(z) = \pm a$. It follows that $v$ has only finitely many zeros, and since $dv_z = \pm dg_z$ at such a zero,
+    \begin{align*}
+        \chi(M) = \sum_{v(z) = 0} \mathrm{ind}_z\, v &= \sum_{\substack{v_z = 0 \\ g(z) = a}} \mathrm{ind}_z\, v + \sum_{\substack{v_z = 0 \\ g(z) = -a}} \mathrm{ind}_z\, v \\
+        &= \deg(g) + (-1)^m \deg(g) = (1 + (-1)^m) \deg(g) = 2 \deg(g),
+    \end{align*}
+    using that $m$ is even.
+\end{proof}
