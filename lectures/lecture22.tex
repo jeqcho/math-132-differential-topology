@@ -87,12 +87,13 @@ locally, using local parametrizations: the corollary says it is independent of t
     \[
         \Omega^0(\R^3) \xrightarrow{d} \Omega^1(\R^3) \xrightarrow{d} \Omega^2(\R^3) \xrightarrow{d} \Omega^3(\R^3) \xrightarrow{d} 0,
     \]
-    recovers the classical vector calculus operators:
-    \begin{align*}
-        f &\xmapsto{\nabla} \tfrac{\partial f}{\partial x_1}\, dx_1 + \tfrac{\partial f}{\partial x_2}\, dx_2 + \tfrac{\partial f}{\partial x_3}\, dx_3 && \text{(gradient)} \\
-        f_1\, dx_1 + f_2\, dx_2 + f_3\, dx_3 &\xmapsto{\nabla \times} \left(\tfrac{\partial f_3}{\partial x_2} - \tfrac{\partial f_2}{\partial x_3}\right) dx_2 \wedge dx_3 + \text{cyc.} && \text{(curl)} \\
-        f_1\, dx_2 \wedge dx_3 + f_2\, dx_3 \wedge dx_1 + f_3\, dx_1 \wedge dx_2 &\xmapsto{\nabla \cdot} \left(\tfrac{\partial f_1}{\partial x_1} + \tfrac{\partial f_2}{\partial x_2} + \tfrac{\partial f_3}{\partial x_3}\right) dx_1 \wedge dx_2 \wedge dx_3 && \text{(divergence)}
-    \end{align*}
+    recovers the classical vector calculus operators, using the shorthand $\partial_i := \partial/\partial x_i$.
+
+    \emph{Gradient.} \quad $f \mapsto \partial_1 f\, dx_1 + \partial_2 f\, dx_2 + \partial_3 f\, dx_3$.
+
+    \emph{Curl.} \quad $f_1\, dx_1 + f_2\, dx_2 + f_3\, dx_3 \mapsto (\partial_2 f_3 - \partial_3 f_2)\, dx_2 \wedge dx_3 + \text{cyc.}$
+
+    \emph{Divergence.} \quad $f_1\, dx_2 \wedge dx_3 + f_2\, dx_3 \wedge dx_1 + f_3\, dx_1 \wedge dx_2 \mapsto (\partial_1 f_1 + \partial_2 f_2 + \partial_3 f_3)\, dx_1 \wedge dx_2 \wedge dx_3$.
 \end{example}
 
 \section{de Rham Cohomology}
