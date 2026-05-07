@@ -156,9 +156,9 @@ When $M$ is a compact, connected hypersurface in $\R^n$ (i.e.\ codimension 1 sub
 \end{corollary}
 
 \begin{corollary}{}{borsuk-ulam-cor2}
-    For any $n$ smooth functions $g_1, \ldots, g_n$ on $S^n$, such that $g_i(p) = g_i(-p)$ for all $i = 1, \ldots, n$, there exists a point $p \in S^n$ at which all $g_i$ vanish simultaneously.
+    For any $n$ smooth functions $g_1, \ldots, g_n$ on $S^n$, there exists a point $p \in S^n$ at which $g_i(p) = g_i(-p)$ for all $i = 1, \ldots, n$.
 \end{corollary}
 
 \begin{proof}
-    If not, apply the corollary to the map $f(x) = (g_1(x) - g_1(-x), \ldots, g_n(x) - g_n(-x), 0)$ and take the $x_{n+1}$ axis for $\ell$.
+    If not, then $f(x) = (g_1(x) - g_1(-x), \ldots, g_n(x) - g_n(-x), 0)$ is a smooth antipodal map $S^n \to \R^{n+1} \setminus \{0\}$ that misses the $x_{n+1}$-axis, contradicting the previous corollary applied with $\ell$ the $x_{n+1}$-axis.
 \end{proof}
